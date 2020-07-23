@@ -1,14 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 
-response = requests.get("https://www.melon.com/chart/index.htm")
+#set url which you want to parse here
+url = 'https://datalab.naver.com/keyword/realtimeList.naver?where=main'
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
 
-print(response)
+response = requests.get(url, headers = headers)
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
-#main_news = soup.select('#old_content > table > tbody > tr ')
+keywords = soup.select('.ranking_item > .item_box > .item_title_wrap > .item_title')
 
-#for data in main_news: print(data.text)
-
-#print(main_news)
+for keyword in keywords: print(keyword.text)
